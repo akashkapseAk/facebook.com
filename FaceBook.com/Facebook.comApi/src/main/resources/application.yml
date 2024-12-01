@@ -1,0 +1,31 @@
+server:
+  port: 1702
+
+spring:
+  application:
+    name: APIGATEWAY-SERVICE
+
+  cloud:
+    gateway:
+      routes:
+        - id: USER-SERVICE
+          uri: lb://FBUSER-SERVICE
+          predicates:
+            - Path=/user/fb/**
+
+        - id: VISITOR-SERVICE
+          uri: lb://FBVISITOR-SERVICE
+          predicates:
+            - Path= /visit/fb/**
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
